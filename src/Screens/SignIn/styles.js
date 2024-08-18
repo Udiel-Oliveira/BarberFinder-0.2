@@ -55,7 +55,6 @@ export const SignMessageButton = styled.TouchableOpacity`
   margin-bottom: 20px;
   justify-content: center;
   align-items: flex-end;
-  flex: 1;
 `;
 export const SignMessageButtonText = styled.Text`
   color: #176b70;
