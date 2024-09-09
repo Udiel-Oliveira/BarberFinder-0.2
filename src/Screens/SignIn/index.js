@@ -12,28 +12,36 @@ import {
   Saudacao,
   NameLogin,
 } from './styles';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import Api from '../../Api';
 import {useNavigation} from '@react-navigation/native';
 import SignInput from '../../components/SignInput';
-
-/*1:29:26*/
 
 import BarberLogo from '../../assets/Logo-black.svg';
 import EmailIcon from '../../assets/email.svg';
 import LockIcon from '../../assets/lock.svg';
+import {Alert} from 'react-native';
 
 export default () => {
   const navigation = useNavigation();
 
-  const [emailFild, setEmailFild] = useState('karalho@karalho');
+  const [emailFild, setEmailFild] = useState('');
   const [senhaFild, setSenhaFild] = useState('');
   const clickCadastrese = () => {
     navigation.reset({
       routes: [{name: 'SignUp'}],
     });
   };
-  const clickLogin = () => {
-    navigation.navigate('');
+  const clickLogin = async () => {
+    if (emailFild != '' && senhaFild != '') {
+      let json = await Api.signIn(emailFild, senhaFild);
+      if (json.token) {
+        Alert.alert('Deu certo!');
+      } else {
+        Alert.alert('Email e/ou senha incorretos!');
+      }
+    } else {
+      Alert.alert('preencha os campos');
+    }
   };
 
   return (
