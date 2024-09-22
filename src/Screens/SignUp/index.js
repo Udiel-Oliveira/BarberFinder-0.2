@@ -24,6 +24,8 @@ import EmailIcon from '../../assets/email.svg';
 import LockIcon from '../../assets/lock.svg';
 import NomeIcon from '../../assets/nome.svg';
 import {Alert} from 'react-native';
+import { Notification } from '../../components/NotificationService';
+const notificador = Notification;
 
 export default () => {
   const navigation = useNavigation();
@@ -49,9 +51,28 @@ export default () => {
     }
   };
 
+  //Notificação
+  componentDidMount = () => {
+    notificador.configurar()
+  }
+  onPressEnviarNotificacao = () =>{
+    notificador.mostrarNotificacao(
+      1, 
+      "Ola Mundo", 
+      "Essa é minha primeira notificação", 
+      {}, 
+      {}
+    )
+  }
+
+  onPressCancelarNotificacoes = () =>{
+    notificador.cancelarTodasNotificacoes()
+  }
+
+
   return (
     <Container>
-      <LogoContainer>
+      <LogoContainer onPress={onPressEnviarNotificacao}>
         <BarberLogo width="10%" color="#000000" />
         <NameLogo font-size="15px">BarBerFinder</NameLogo>
       </LogoContainer>
